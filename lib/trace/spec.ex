@@ -178,25 +178,25 @@ defmodule Trace.Spec do
   end
 
   defp fun2ms_ast({:fn, _, _} = fun, _, _) do
-    quote generated: true do
+    quote do
       :dbg.fun2ms(unquote(fun))
     end
   end
 
   defp fun2ms_ast(arguments, guards, return) when is_list(arguments) and is_tuple(guards) do
-    quote generated: true do
+    quote do
       :dbg.fun2ms(fn(unquote(arguments)) when unquote(guards) -> unquote(fun2ms_ast_return(return)) end)
     end
   end
 
   defp fun2ms_ast(arguments, _, return) when is_list(arguments) do
-    quote generated: true do
+    quote do
       :dbg.fun2ms(fn(unquote(arguments)) -> unquote(fun2ms_ast_return(return)) end)
     end
   end
 
   defp fun2ms_ast(_, _, return) do
-    quote generated: true do
+    quote do
       :dbg.fun2ms(fn(_) -> unquote(fun2ms_ast_return(return)) end)
     end
   end
