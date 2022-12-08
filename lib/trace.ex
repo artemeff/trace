@@ -3,16 +3,19 @@ defmodule Trace do
   Documentation for `Trace`.
   """
 
-  @doc """
-  Hello world.
+  defmacro calls(ast, max, opts \\ []) do
+    case Trace.Spec.parse_ast(ast, __CALLER__) do
+      {:ok, spec} ->
+        quote do
+          Trace.trace(unquote(List.wrap(Macro.escape(spec))), unquote(max), unquote(opts))
+        end
 
-  ## Examples
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
 
-      iex> Trace.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def trace(spec, max, opts) do
+    [spec: spec, max: max, opts: opts]
   end
 end
