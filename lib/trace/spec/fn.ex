@@ -1,4 +1,11 @@
 defmodule Trace.Spec.Fn do
+  # reading list
+  # https://github.com/erlang/otp/blob/master/lib/stdlib/src/ms_transform.erl
+  # https://github.com/erlang/otp/blob/master/lib/stdlib/src/ms_transform.erl#L959
+  # https://github.com/erlang/otp/blob/master/lib/stdlib/test/ms_transform_SUITE.erl
+  # https://hexdocs.pm/matcha/Matcha.html
+  # https://www.erlang.org/doc/man/ets.html#match_spec_run-2
+
   defmacro to_match_spec(ast) do
     quote do
       unquote(to_spec(ast, __CALLER__))
